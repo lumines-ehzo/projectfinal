@@ -1,18 +1,14 @@
 import {StyleSheet, View} from 'react-native';
-import {TextInput, Button, Text, HelperText} from 'react-native-paper';
+import {TextInput, Button, Text} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 
 const RegisterScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  //   const hasErrors = () => {
-  //     return !username.includes('');
-  //   };
   return (
     <View style={styles.container}>
-      <Text style={styles.headingText}>Get started with your first</Text>
-      <Text style={styles.headingText}>booking on App</Text>
+      <Text style={styles.headingText}>Register</Text>
       <TextInput
         style={styles.inputText}
         label="Username"
@@ -20,10 +16,6 @@ const RegisterScreen = () => {
         mode="flat"
         onChangeText={text => setUsername(text)}
       />
-      {/* <HelperText type="error" visible={hasErrors()}>
-        Email address is invalid!
-      </HelperText> */}
-
       <TextInput
         style={styles.inputText}
         label="Password"
@@ -68,6 +60,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#3ec97c',
+  },
+  headingImg: {
+    width: '100%',
+    height: 333,
+    marginBottom: 10,
   },
   headingText: {
     fontSize: 30,
@@ -91,6 +89,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 10,
     borderRadius: 20,
-    backgroundColor: '#3ec97c',
+    backgroundColor: '#2f2f2f',
   },
 });

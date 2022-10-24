@@ -1,16 +1,16 @@
-import {StyleSheet, View} from 'react-native';
-import {TextInput, Button, Text, HelperText} from 'react-native-paper';
+import {StyleSheet, View, Image} from 'react-native';
+import {TextInput, Button, Text} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const hasErrors = () => {
-    return !username.includes('@');
-  };
-
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.headingImg}
+        source={require('../../components/img/3094352.png')}
+      />
       <Text style={styles.headingText}>Login</Text>
       <TextInput
         style={styles.inputText}
@@ -19,10 +19,6 @@ const LoginScreen = () => {
         mode="flat"
         onChangeText={text => setUsername(text)}
       />
-      <HelperText type="error" visible={hasErrors()}>
-        Email address is invalid!
-      </HelperText>
-
       <TextInput
         style={styles.inputText}
         label="Password"
@@ -36,11 +32,10 @@ const LoginScreen = () => {
       <Button
         style={styles.btnLogin}
         mode="contained"
-        right={<TextInput.Icon icon="back" />}
+        // right={<TextInput.Icon icon="back" />}
         onPress={() => console.log('Pressed')}>
         Login
       </Button>
-
       <Text style={styles.bottomText}>
         Don't have an account?
         <Text style={styles.bottomSpan}> Create an account</Text>
@@ -58,6 +53,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#3ec97c',
+  },
+  headingImg: {
+    width: '100%',
+    height: 333,
+    marginBottom: 10,
   },
   headingText: {
     fontSize: 30,
@@ -81,6 +82,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 10,
     borderRadius: 20,
-    backgroundColor: '#3ec97c',
+    backgroundColor: '#2f2f2f',
   },
 });

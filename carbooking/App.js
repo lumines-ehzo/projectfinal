@@ -23,11 +23,26 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {/* <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        /> */}
         <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{headerShown: false}}
+        />
+        {/* <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        /> */}
+        {/* <Stack.Screen
           name="CarparkingDetail"
           component={CarparkingDetailScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         {/* <Stack.Screen
           name="Carparking"
           component={CarparkingScreen}
@@ -46,21 +61,6 @@ const App = () => {
         {/* <Stack.Screen
           name="Blank"
           component={BlankScreen}
-          options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
-          name="Home"
-          component={HomeScreen}
           options={{headerShown: false}}
         /> */}
       </Stack.Navigator>
