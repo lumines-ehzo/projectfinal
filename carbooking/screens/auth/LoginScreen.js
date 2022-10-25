@@ -2,7 +2,7 @@ import {StyleSheet, View, Image} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -32,13 +32,16 @@ const LoginScreen = () => {
       <Button
         style={styles.btnLogin}
         mode="contained"
-        // right={<TextInput.Icon icon="back" />}
-        onPress={() => console.log('Pressed')}>
+        onPress={() => navigation.navigate('Home')}>
         Login
       </Button>
       <Text style={styles.bottomText}>
         Don't have an account?
-        <Text style={styles.bottomSpan}> Create an account</Text>
+        <Text
+          onPress={() => navigation.navigate('Register')}
+          style={styles.bottomSpan}>
+          Create an account
+        </Text>
       </Text>
     </View>
   );

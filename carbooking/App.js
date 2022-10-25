@@ -17,50 +17,58 @@ import HistoryDetail from './screens/history/HistoryDetail';
 // Carparking
 import CarparkingScreen from './screens/carparking/CarparkingScreen';
 import CarparkingDetailScreen from './screens/carparking/CarparkingDetailScreen';
+
+// Footer
+import Footer from './components/img/Footer';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Login"
           component={LoginScreen}
           options={{headerShown: false}}
-        /> */}
+        />
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
-          name="CarparkingDetail"
-          component={CarparkingDetailScreen}
-          options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="Carparking"
           component={CarparkingScreen}
           options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
-          name="BookingDetail"
-          component={BookingDetailScreen}
+        />
+        <Stack.Screen
+          name="CarparkingDetail"
+          component={CarparkingDetailScreen}
           options={{headerShown: false}}
-        /> */}
-        {/* <Stack.Screen
+        />
+        <Stack.Screen
           name="Booking"
           component={BookingScreen}
           options={{headerShown: false}}
-        /> */}
+        />
+        <Stack.Screen
+          name="BookingDetail"
+          component={BookingDetailScreen}
+          options={{headerShown: false}}
+        />
         {/* <Stack.Screen
           name="Blank"
           component={BlankScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Footer"
+          component={Footer}
           options={{headerShown: false}}
         /> */}
       </Stack.Navigator>

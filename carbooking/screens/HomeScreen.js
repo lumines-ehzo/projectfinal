@@ -1,11 +1,13 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, FAB, Portal, Provider} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
-
+  const [state, setState] = React.useState({open: false});
+  const onStateChange = ({open}) => setState({open});
+  const {open} = state;
   return (
     <View style={styles.container}>
       <Image
@@ -18,12 +20,45 @@ const HomeScreen = () => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam
       </Text>
+
       <Button
         style={styles.btnStarted}
         mode="contained"
-        onPress={() => console.log('Pressed')}>
+        onPress={() => navigation.navigate('Carparking')}>
         Get Started
       </Button>
+      <Provider>
+        <Portal>
+          <FAB.Group
+            open={open}
+            icon={open ? 'calendar-today' : 'plus'}
+            actions={[
+              {icon: 'plus', onPress: () => console.log('Pressed add')},
+              {
+                icon: 'star',
+                label: 'Star',
+                onPress: () => console.log('Pressed star'),
+              },
+              {
+                icon: 'email',
+                label: 'Email',
+                onPress: () => console.log('Pressed email'),
+              },
+              {
+                icon: 'bell',
+                label: 'Remind',
+                onPress: () => console.log('Pressed notifications'),
+              },
+            ]}
+            onStateChange={onStateChange}
+            onPress={() => {
+              if (open) {
+                // do something if the speed dial is open
+              }
+            }}
+          />
+        </Portal>
+      </Provider>
     </View>
   );
 };
@@ -48,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700',
     marginBottom: 15,
-    color: '#fff',
+    color: '#2f2f2f',
     textAlign: 'center',
   },
   subText: {

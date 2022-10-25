@@ -15,7 +15,7 @@ const AlbumsRoute = () => <Text>Albums</Text>;
 const RecentsRoute = () => <Text>Recents</Text>;
 const NotificationsRoute = () => <Text>Notifications</Text>;
 
-const BookingScreen = () => {
+const BookingScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
   const [plate, setPlate] = useState('');
@@ -48,66 +48,53 @@ const BookingScreen = () => {
   });
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.headingText}>Booking</Text>
-      {/* <Card.Title
-        title="Card Title"
-        subtitle="Card Subtitle"
-        left={props => <Avatar.Icon {...props} icon="folder" />}
-        right={props => (
-          <IconButton {...props} icon="more-vert" onPress={() => {}} />
-        )}
-      /> */}
-      <Text>Place:</Text>
-      <TextInput
-        style={styles.inputText}
-        label="Name"
-        value={name}
-        mode="flat"
-        onChangeText={text => setName(text)}
-      />
-      <TextInput
-        style={styles.inputText}
-        label="Tel"
-        value={tel}
-        mode="flat"
-        onChangeText={text => setTel(text)}
-      />
-      <TextInput
-        style={styles.inputText}
-        label="Plate"
-        value={plate}
-        mode="flat"
-        onChangeText={text => setPlate(text)}
-      />
-      <TextInput
-        style={styles.inputText}
-        label="Type"
-        value={type}
-        mode="flat"
-        onChangeText={text => setType(text)}
-      />
-      <TextInput
-        style={styles.inputText}
-        label="TimeBooking"
-        value={timeBooking}
-        mode="flat"
-        onChangeText={text => setTimeBooking(text)}
-      />
+    <View style={styles.backGround}>
+      <View style={styles.container}>
+        <Text style={styles.headingText}>Booking</Text>
+        <Text style={styles.namePlace}>Place:</Text>
+        <TextInput
+          style={styles.inputText}
+          label="Name"
+          value={name}
+          mode="flat"
+          onChangeText={text => setName(text)}
+        />
+        <TextInput
+          style={styles.inputText}
+          label="Tel"
+          value={tel}
+          mode="flat"
+          onChangeText={text => setTel(text)}
+        />
+        <TextInput
+          style={styles.inputText}
+          label="Plate"
+          value={plate}
+          mode="flat"
+          onChangeText={text => setPlate(text)}
+        />
+        <TextInput
+          style={styles.inputText}
+          label="Type"
+          value={type}
+          mode="flat"
+          onChangeText={text => setType(text)}
+        />
+        <TextInput
+          style={styles.inputText}
+          label="TimeBooking"
+          value={timeBooking}
+          mode="flat"
+          onChangeText={text => setTimeBooking(text)}
+        />
 
-      <Button
-        style={styles.btnLogin}
-        mode="contained"
-        // right={<TextInput.Icon icon="eye" />}
-        onPress={() => console.log('Pressed')}>
-        Booking
-      </Button>
-
-      {/* <BottomNavigation
-        navigationState={{index, routes}}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      /> */}
+        <Button
+          style={styles.btnBooking}
+          mode="contained"
+          onPress={() => navigation.navigate('Home')}>
+          Booking
+        </Button>
+      </View>
     </View>
   );
 };
@@ -115,6 +102,11 @@ const BookingScreen = () => {
 export default BookingScreen;
 
 const styles = StyleSheet.create({
+  backGround: {
+    backgroundColor: '#3ec97c',
+    width: '100%',
+    height: '100%',
+  },
   container: {
     flex: 1,
     width: '100%',
@@ -140,10 +132,11 @@ const styles = StyleSheet.create({
   inputText: {
     marginBottom: 20,
   },
-  btnLogin: {
+  btnBooking: {
     paddingBottom: 10,
     paddingTop: 10,
     borderRadius: 20,
-    backgroundColor: '#3ec97c',
+    backgroundColor: '#2f2f2f',
   },
+  namePlace: {marginBottom: 10},
 });
