@@ -61,16 +61,6 @@ const App = () => {
           component={BookingDetailScreen}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen
-          name="Blank"
-          component={BlankScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Footer"
-          component={Footer}
-          options={{headerShown: false}}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

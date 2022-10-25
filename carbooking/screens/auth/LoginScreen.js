@@ -1,10 +1,35 @@
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, Alert} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState, useEffect} from 'react';
 
 const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    const response = await fetch('http://10.0.2.2:6969/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        expiredIn: 60000,
+      }),
+    });
+    const data = await response.json();
+    if (data.status === 'ok') {
+      await AsyncStorage.setItem('@accessToken', data.token);
+      const accessToken = await AsyncStorage.getItem('@accessToken');
+      console.log(accessToken);
+      alert('Successfully Login');
+      navigation.navigate('Home');
+    } else {
+      alert('Login Failed');
+    }
+  };
   return (
     <View style={styles.container}>
       <Image
@@ -29,10 +54,7 @@ const LoginScreen = ({navigation}) => {
         onChangeText={text => setPassword(text)}
       />
 
-      <Button
-        style={styles.btnLogin}
-        mode="contained"
-        onPress={() => navigation.navigate('Home')}>
+      <Button style={styles.btnLogin} mode="contained" onPress={handleLogin}>
         Login
       </Button>
       <Text style={styles.bottomText}>

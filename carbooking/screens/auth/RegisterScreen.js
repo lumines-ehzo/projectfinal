@@ -1,13 +1,37 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 
 const RegisterScreen = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleRegister = async () => {
+    const response = await fetch('http://10.0.2.2:6969/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+    if (data.status === 'ok') {
+      alert('Successfully Register');
+      navigation.navigate('Home');
+    } else {
+      alert('Register Failed');
+    }
+  };
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.headingImg}
+        source={require('../../components/img/register.png')}
+      />
       <Text style={styles.headingText}>Register</Text>
       <TextInput
         style={styles.inputText}
@@ -26,20 +50,7 @@ const RegisterScreen = ({navigation}) => {
         onChangeText={text => setPassword(text)}
       />
 
-      <TextInput
-        style={styles.inputText}
-        label="Confirm Password"
-        value={confirmPassword}
-        mode="flat"
-        secureTextEntry
-        right={<TextInput.Icon icon="eye" />}
-        onChangeText={text => setPassword(text)}
-      />
-
-      <Button
-        style={styles.btnLogin}
-        mode="contained"
-        onPress={() => navigation.navigate('Home')}>
+      <Button style={styles.btnLogin} mode="contained" onPress={handleRegister}>
         Sign Up
       </Button>
 
@@ -68,8 +79,7 @@ const styles = StyleSheet.create({
   },
   headingImg: {
     width: '100%',
-    height: 333,
-    marginBottom: 10,
+    height: 280,
   },
   headingText: {
     fontSize: 30,
