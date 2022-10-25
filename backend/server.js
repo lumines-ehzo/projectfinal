@@ -95,7 +95,6 @@ app.post('/api/auth/user', function (req, res, next) {
       'SELECT * FROM users WHERE username = ?',
       [decoded.username],
       function (err, results, fields) {
-        // res.json(results);
         res.json({ status: 'ok', user: results });
       }
     );
@@ -104,13 +103,38 @@ app.post('/api/auth/user', function (req, res, next) {
   }
 });
 
+//Carparking
+app.get('/api/carparking', function (req, res, next) {
+  connection.query('SELECT * FROM parking', function (err, results, fields) {
+    res.json({ status: 'ok', data: results });
+  });
+});
+app.get('/api/carparking/:id', function (req, res, next) {
+  connection.query(
+    'SELECT * FROM parking WHERE parking_id = ?',
+    [req.params['id']],
+    function (err, results, fields) {
+      res.json({ status: 'ok', data: results });
+    }
+  );
+});
+
 // =============================
 // @DESC::History Booking
 // =============================
 app.get('/api/booking', function (req, res, next) {
-  connection.query('SELECT * FROM `booking', function (err, results, fields) {
+  connection.query('SELECT * FROM booking', function (err, results, fields) {
     res.json(results);
   });
+});
+app.get('/api/booking/:id', function (req, res, next) {
+  connection.query(
+    'SELECT * FROM booking WHERE booking_user = ?',
+    [req.params['id']],
+    function (err, results, fields) {
+      res.json({ status: 'ok', data: results });
+    }
+  );
 });
 
 // app.get("/api/carparking", function (req, res, next) {

@@ -1,10 +1,23 @@
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
 import {Card, Searchbar, Title, Paragraph} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
 
 const CarparkingScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
+  const onPressDetail = id => {
+    // alert('Hello');
+    navigation.navigate('CarparkingDetail', {id: id});
+  };
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    fetch('http://10.0.2.2:6969/api/carparking')
+      .then(res => res.json())
+      .then(result => {
+        console.log(result.data);
+        setItems(result.data);
+      });
+  }, []);
   return (
     <ScrollView>
       <View style={styles.background}>
@@ -17,25 +30,21 @@ const CarparkingScreen = ({navigation}) => {
               onChangeText={onChangeSearch}
               value={searchQuery}
             />
-            <ScrollView></ScrollView>
-            <View style={styles.showCard}>
-              <Card onPress={() => navigation.navigate('CarparkingDetail')}>
-                <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
-                <Card.Content>
-                  <Title>Card title</Title>
-                  <Paragraph>Card content</Paragraph>
-                </Card.Content>
-              </Card>
-            </View>
-            <View>
-              <Card onPress={() => navigation.navigate('CarparkingDetail')}>
-                <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
-                <Card.Content>
-                  <Title>Card title</Title>
-                  <Paragraph>Card content</Paragraph>
-                </Card.Content>
-              </Card>
-            </View>
+            {items.map(item => (
+              <Pressable
+                onPress={() => onPressDetail(item.parking_id)}
+                key={item.id}>
+                <View style={styles.showCard}>
+                  <Card>
+                    <Card.Cover source={{uri: 'https://picsum.photos/700'}} />
+                    <Card.Content>
+                      <Title>{item.parking_name}</Title>
+                      <Paragraph>{item.parking_name_th}</Paragraph>
+                    </Card.Content>
+                  </Card>
+                </View>
+              </Pressable>
+            ))}
           </View>
         </View>
       </View>
