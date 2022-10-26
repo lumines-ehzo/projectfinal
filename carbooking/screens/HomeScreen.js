@@ -1,8 +1,50 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {Button, FAB, Portal, Provider} from 'react-native-paper';
 import React, {useState, useEffect} from 'react';
+import MQTT from 'sp-react-native-mqtt';
 
 const HomeScreen = ({navigation}) => {
+  const publishUser = (status) => {
+  MQTT.createClient({
+    uri:'mqtt://broker.mqttdashboard.com:1883',
+  }).then(function(client){
+    client.on('closed',function(){
+      console.log('mqtt.event.closed');
+    });
+    client.on('connect',function(){
+      console.log('connected');
+    // client.publish('barrier/status',`${status}`,0,false);
+    client.publish('user/booking',`${status}`,0,false);
+  });
+    client.connect();
+  }).catch(function(err){
+      console.log(err);
+    });
+  }
+  useEffect(()=>{
+    publishUser();
+  }, []);
+
+  const publishBarrier = (status) => {
+    MQTT.createClient({
+      uri:'mqtt://broker.mqttdashboard.com:1883',
+    }).then(function(client){
+      client.on('closed',function(){
+        console.log('mqtt.event.closed');
+      });
+      client.on('connect',function(){
+        console.log('connected');
+      client.publish('barrier/status',`${status}`,0,false);
+      // client.publish('user/booking',`${status}`,0,false);
+    });
+      client.connect();
+    }).catch(function(err){
+        console.log(err);
+      });
+    }
+    useEffect(()=>{
+      publishBarrier();
+    }, []);
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
   const [state, setState] = React.useState({open: false});
@@ -42,12 +84,13 @@ const HomeScreen = ({navigation}) => {
               {
                 icon: 'email',
                 label: 'Email',
-                onPress: () => console.log('Pressed email'),
+                onPress: () => publishBarrier('open'),
               },
               {
                 icon: 'bell',
                 label: 'Remind',
-                onPress: () => console.log('Pressed notifications'),
+                onPress : () => {publishBarrier('open'),publishUser('https://nashosting.com/carparking/carparkingapp/backend/view_history_booking.php?userid=21')}
+                // onPress: () => publishBarrier('open'),
               },
             ]}
             onStateChange={onStateChange}
