@@ -6,7 +6,7 @@ const AlbumsRoute = () => <Text>Albums</Text>;
 const RecentsRoute = () => <Text>Recents</Text>;
 const NotificationsRoute = () => <Text>Notifications</Text>;
 
-const CarparkingDetailScreen = ({navigation}) => {
+const CarparkingDetailScreen = ({navigation, route}) => {
   const image = {uri: 'https://picsum.photos/700'};
   const [index, setIndex] = useState(0);
   const [routes] = React.useState([
@@ -33,6 +33,16 @@ const CarparkingDetailScreen = ({navigation}) => {
     notifications: NotificationsRoute,
   });
 
+  const [item, setItem] = useState({});
+  useEffect(() => {
+    fetch('http://10.0.2.2:6969/api/carparking/' + route.params.id)
+      .then(res => res.json())
+      .then(result => {
+        console.log(result.data);
+        setItem(result.data);
+      });
+  }, []);
+
   return (
     <View style={styles.backGround}>
       <ImageBackground
@@ -41,20 +51,16 @@ const CarparkingDetailScreen = ({navigation}) => {
         style={styles.headingImg}>
         <View style={styles.emptyView}></View>
         <View style={styles.content}>
-          <Text style={styles.namePlace}>Wat noi</Text>
+          <Text style={styles.namePlace}>{item.parking_name}</Text>
           <Text style={styles.locationPlace}>
             Bangkok,Thailand <Text style={styles.txtMap}>Map Direction</Text>
           </Text>
-          <Text style={styles.locationPlace}>8AM - 9PM</Text>
+          <Text style={styles.locationPlace}>{item.parking_status}</Text>
           <View style={styles.hrLine}></View>
           <Text style={styles.topicPlace}>Detail</Text>
-          <Text style={styles.detailPlace}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam
-          </Text>
+          <Text style={styles.detailPlace}>{item.parking_detail}</Text>
           <Text style={styles.topicPlace}>Cost</Text>
-          <Text style={styles.spanContent}>50฿/hr</Text>
+          <Text style={styles.spanContent}>{item.parking_price}฿/hr</Text>
           <Button
             style={styles.btnBook}
             mode="contained"
@@ -63,11 +69,6 @@ const CarparkingDetailScreen = ({navigation}) => {
           </Button>
         </View>
       </ImageBackground>
-      {/* <BottomNavigation
-        navigationState={{index, routes}}
-        onIndexChange={setIndex}
-        renderScene={renderScene}
-      /> */}
     </View>
   );
 };
