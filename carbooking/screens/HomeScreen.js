@@ -89,7 +89,7 @@ const HomeScreen = ({navigation}) => {
               {
                 icon: 'bell',
                 label: 'Remind',
-                onPress : () => {publishBarrier('open'),publishUser('https://nashosting.com/carparking/carparkingapp/backend/view_history_booking.php?userid=21')}
+                onPress : () => {publishBarrier('open'),publishUser('https://nashosting.com/carparking/carparkingapp/backend/view_history_booking.php?userid=21')} //for test
                 // onPress: () => publishBarrier('open'),
               },
             ]}
